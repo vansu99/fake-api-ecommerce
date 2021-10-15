@@ -5,7 +5,7 @@ faker.locale = "vi";
 const randomCategoryList = (n) => {
   if (n <= 0) return [];
   const categoryList = [];
-  Array.from(new Array(n)).forEach((n) => {
+  Array.from(new Array(n).keys()).forEach((n) => {
     const category = {
       id: faker.random.uuid(),
       title: faker.commerce.department(),
@@ -22,12 +22,13 @@ const randomProductList = (category, n) => {
   const productList = [];
 
   for (let cate of category) {
-    Array.from(new Array(n)).forEach((n) => {
+    Array.from(new Array(n).keys()).forEach((n) => {
       const product = {
         id: faker.random.uuid(),
         title: faker.commerce.productName(),
-        price: Number.parseFloat(faker.commerce.price()),
+        price: Number.parseFloat(faker.commerce.price(50, 4000)),
         description: faker.commerce.productDescription(),
+        discount: faker.random.number({min: 10, max: 30}),
         thumbnail: faker.image.imageUrl(250, 250),
         categoryId: cate.id,
         createdAt: Date.now(),
@@ -42,7 +43,7 @@ const randomProductList = (category, n) => {
 
 (() => {
   // random data
-  const categoryList = randomCategoryList(4);
+  const categoryList = randomCategoryList(6);
   const productList = randomProductList(categoryList, 100);
 
   const db = {
