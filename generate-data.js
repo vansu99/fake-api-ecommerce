@@ -1,5 +1,7 @@
 const faker = require("faker");
 const fs = require("fs");
+const { default: slugify } = require("slugify");
+const slug = require('slugify')
 faker.locale = "vi";
 
 const randomCategoryList = (n) => {
@@ -8,10 +10,11 @@ const randomCategoryList = (n) => {
   Array.from(new Array(n).keys()).forEach((n) => {
     const category = {
       id: faker.random.uuid(),
-      title: faker.commerce.department(),
+      title: faker.commerce.department() + ' test',
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };
+    category.slug = slugify(category.title)
     categoryList.push(category);
   });
   return categoryList;
