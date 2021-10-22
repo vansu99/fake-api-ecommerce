@@ -41,6 +41,7 @@ router.render = (req, res) => {
         _page: Number.parseInt(queryParams._page) || 1,
         _limit: Number.parseInt(queryParams._limit) || 20,
         _totalRows: Number.parseInt(totalCountHeader),
+          link: `https://fake-api-ecom.herokuapp.com/api/products?_page=${Number.parseInt(queryParams._page)}`
       },
     };
     return res.jsonp(result);
